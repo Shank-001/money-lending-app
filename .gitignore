@@ -33,3 +33,21 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials.yml.enc
+
+# Ignore system files
+.DS_Store
+*.swp
+
+# Ignore database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore node modules & JS build files
+/node_modules
+/public/packs
+/public/assets
+.byebug_history
+
+# Ignore uploads
+/public/uploads
