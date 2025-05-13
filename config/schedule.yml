@@ -1,0 +1,5 @@
+interest_calculation_job:
+  cron: "*/5 * * * *" # Every 5 minutes
+  class: "InterestCalculationJob"
+  queue: "default"
+  description: "Calculates interest for loans every 5 minutes."

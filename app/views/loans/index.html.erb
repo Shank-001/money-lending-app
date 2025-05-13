@@ -1,0 +1,35 @@
+<h1>Loans</h1>
+
+<% if current_account.user? %>
+  <%= link_to "Request New Loan", new_loan_path %>
+<% end %>
+<hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <% if current_account.admin? %>
+        <th>Borrower</th> 
+      <% end %>
+      <th>Amount</th>
+      <th>Interest Rate</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= loan.id %></td>
+        <% if current_account.admin? %>
+          <td><%= loan.borrower.email %></td>
+        <% end %>
+        <td>₹<%= loan.amount %></td>
+        <td><%= loan.interest_rate %>%</td>
+        <td><%= loan.status %></td>
+        <td><%= link_to "Show", loan_path(loan) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

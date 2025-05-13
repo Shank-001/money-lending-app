@@ -1,0 +1,19 @@
+<h1>Edit Loan</h1>
+
+<%= form_with model: @loan, url: loan_path(@loan), method: :patch do |f| %>
+  <div>
+    <%= f.label :amount, "New Amount: " %>
+    <%= f.number_field :amount, min: 100, max: 100000 %>
+  </div>
+
+  <div>
+    <%= f.label :interest_rate, "New Interest Rate: " %>
+    <%= f.number_field :interest_rate, min: 0, max: 100, step: 0.01 %>
+  </div>
+
+  <%= hidden_field_tag :type, params[:type] %>
+
+  <div>
+    <%= f.submit "Submit Adjustment" %>
+  </div>
+<% end %>

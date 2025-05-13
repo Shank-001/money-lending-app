@@ -1,0 +1,21 @@
+<h1>Adjustment History</h1>
+
+<% @loan.versions.each do |version| %>
+  <div class="adjustment-entry">
+    <p>
+      <strong><%= version_author(version) %></strong>
+      made changes at <%= version.created_at.strftime("%d %b %Y %I:%M %p") %>
+    </p>
+
+    <ul>
+      <% version.object_changes.each do |field, (from, to)| %>
+        <li>
+          <%= field.humanize %> changed from <strong><%= from %></strong> to <strong><%= to %></strong>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <hr>
+<% end %>
+<br>
+<%= link_to "Back", loan_path(@loan) %>

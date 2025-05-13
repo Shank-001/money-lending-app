@@ -1,0 +1,43 @@
+<h1>Loan #<%= @loan.id %></h1>
+
+<% if current_account.admin? %>
+  <p> Borrower: <%= @loan.borrower.email %></p>
+<% end %> 
+<p>Amount: ₹<%= @loan.amount %></p>
+<p>Interest Rate: <%= @loan.interest_rate %>%</p>
+<p>Status: <%= @loan.status %></p>
+<% if @loan.open? %>
+  <p>Total Loan Amount (Repayable): ₹<%= @loan.total_loan_amount %></p>
+<% end %>
+
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<% if current_account.admin? && (@loan.requested? || @loan.readjustment_requested?) %>
+  <%= button_to "Approve", approve_loan_path(@loan), method: :post %>
+  <%= button_to "Reject", admin_reject_loan_path(@loan), method: :post %>
+  <%= button_to "Propose Adjustment", propose_adjustment_loan_path(@loan), method: :post %>
+<% end %>
+
+<% if current_account.user? && @loan.approved? %>
+  <%= button_to "Confirm", confirm_loan_path(@loan), method: :post %>
+  <%= button_to "Reject", reject_loan_path(@loan), method: :post %>
+<% end %>
+
+<% if current_account.user? && @loan.waiting_for_adjustment_acceptance? %>
+  <%= button_to "Confirm", confirm_loan_path(@loan), method: :post %>
+  <%= button_to "Reject", reject_loan_path(@loan), method: :post %>
+  <%= button_to "Request Readjustment", request_readjustment_loan_path(@loan), method: :post %>
+<% end %>
+
+<% if current_account.user? && @loan.open? %>
+  <%= button_to "Repay", repay_loan_path(@loan), method: :post %>
+<% end %>
+</div>
+<br>
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <% if @loan.versions.any? %>
+    <%= link_to "History", history_loan_path(@loan) %>
+  <% end %>
+  <%= link_to "Back", loans_path %>
+</div>

@@ -1,0 +1,10 @@
+<nav>
+  <% if account_signed_in? %>
+    <%= link_to "Home", root_path %> |
+    <strong> Logged in as: </strong> <%= current_account.email %> |
+    <strong> Role: </strong> <%= current_account.role.capitalize %> |
+    <strong> Balance: </strong> ₹<%= current_account.wallet.balance %> |
+    <%= link_to "Logout", destroy_account_session_path, data: { turbo_method: :delete } %>
+    <hr>
+  <% end %>
+</nav>
